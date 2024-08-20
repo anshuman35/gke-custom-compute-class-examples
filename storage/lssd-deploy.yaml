@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emptydir-lssd
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: emptydir-lssd
+  template:
+    metadata:
+      labels:
+        app: emptydir-lssd
+    spec:
+      nodeSelector:
+        cloud.google.com/compute-class: c3-lssd
+      containers:
+      - name: test
+        image: registry.k8s.io/pause:latest
+        resources:
+          requests:
+            cpu: 700m
+            memory: "1Gi"
+            ephemeral-storage: "10Gi"
+        volumeMounts:
+        - mountPath: /cache
+          name: scratch-volume
+      volumes:
+        - name: scratch-volume
+          emptyDir: {}

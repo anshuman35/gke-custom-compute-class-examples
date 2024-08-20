@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-workload
+  namespace: default
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: test-workload
+  template:
+    metadata:
+      labels:
+        app: test-workload
+    spec:
+      nodeSelector:
+        cloud.google.com/compute-class: prefer-n2
+      containers:
+      - name: test
+        image: registry.k8s.io/pause:latest
+        resources:
+          requests:
+            cpu: 700m
+            memory: "1Gi"
