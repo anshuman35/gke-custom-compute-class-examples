@@ -115,7 +115,7 @@ This creates 10 replicas. Next, let's scale up the workload to see what happens 
  kubectl scale deployment test-workload --replicas 30
 ```
 
-This creates 10 replicas. Next, let's scale up the workload again to see what happens when we hit the max nodes for`n2 spot` and fall back to `n2d spot`.
+We now have 30 replicas with pods landing on the n2 nodes. Next, let's scale up the workload again to see what happens when we hit the max nodes for `n2 spot` and fall back to `n2d spot`.
 
 6. Scale up to 100 replicas:
 
