@@ -81,5 +81,52 @@ watch ./status.sh
 
 You can  use `kubectl describe node <node name>` and look for this label: `cloud.google.com/gke-ephemeral-storage-local-ssd=true` to confirm your node is configured to use local SSD for ephemeral storage.
 
+## Statically defined node pool example
+This example showcases priority rules featuring statically defined node pools (node pools you create, not NAP). This example also gives you a chance to see how fall-back priorities work by constraining the total number of nodes permissible in a given node pool. 
+
+1. Edit the file `static-node-pools/screate-node-pools.sh` and add values for the `CLUSTER_NAME` and `LOCATION` variables. 
+
+2. Create the node pools:
+
+```bash
+chmod 750 static-node-pools/screate-node-pools.sh
+./create static-node-pools/screate-node-pools.sh
+```
+
+3. Deploy the custom compute class:
+```bash
+kubectl apply -f static-node-pools/sstatic-pools-class.yaml
+```
+
+4. Deploy the workload using the class:
+```bash
+kubectl apply -f static-node-pools/static-pools-deploy.yaml
+```
+In a separate shell instance, watch the pods, nodes, and node pools:
+```
+watch ./status.sh
+```
+
+This creates 10 replicas. Next, let's scale up the workload to see what happens when we hit the max nodes for`e2 spot` and fall back to `n2 spot`.
+
+5. Scale up to 30 replicas:
+
+```bash
+ kubectl scale deployment test-workload --replicas 30
+```
+
+This creates 10 replicas. Next, let's scale up the workload again to see what happens when we hit the max nodes for`n2 spot` and fall back to `n2d spot`.
+
+6. Scale up to 100 replicas:
+
+```bash
+ kubectl scale deployment test-workload --replicas 100
+```
+
+7. Delete the workload and watch the scale down:
+```bash
+kubectl delete -f static-node-pools/static-pools-deploy.yaml
+```
+
 ## GPU Accelerator example
 See the README file in the `gpu-accelerator` directory
