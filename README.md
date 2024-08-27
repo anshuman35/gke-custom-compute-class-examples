@@ -2,6 +2,10 @@
 
 This repo contains some example configurations for use with Google Kubernetes Engine's custom compute class feature. Please see the [custom compute class documentation](https://cloud.google.com/kubernetes-engine/docs/concepts/about-custom-compute-classes) for latest references.
 
+## Watch a demo of Custom Compute Classes
+
+[![Custom Compute Class Demo](https://img.youtube.com/vi/wxlE0FqeaNY/0.jpg)](https://www.youtube.com/watch?v=wxlE0FqeaNY)
+
 ## Pre-requisites
 The custom compute class feature works with both GKE Standard and Autopilot modes. It requires GKE version 1.30.3-gke.1451000 and later.
 
@@ -82,6 +86,8 @@ watch ./status.sh
 You can  use `kubectl describe node <node name>` and look for this label: `cloud.google.com/gke-ephemeral-storage-local-ssd=true` to confirm your node is configured to use local SSD for ephemeral storage.
 
 ## Statically defined node pool example
+*Requires GKE Standard mode cluster* 
+
 This example showcases priority rules featuring statically defined node pools (node pools you create, not NAP). This example also gives you a chance to see how fall-back priorities work by constraining the total number of nodes permissible in a given node pool. 
 
 1. Edit the file `static-node-pools/screate-node-pools.sh` and add values for the `CLUSTER_NAME` and `LOCATION` variables. 
