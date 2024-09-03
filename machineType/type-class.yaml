@@ -14,3 +14,4 @@ spec:
     enabled: true
   autoscalingPolicy:
     consolidationDelayMinutes: 1
+  whenUnsatisfiable: DoNotScaleUp
