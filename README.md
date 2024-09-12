@@ -95,8 +95,8 @@ This example showcases priority rules featuring statically defined node pools (n
 2. Create the node pools:
 
 ```bash
-chmod 750 static-node-pools/screate-node-pools.sh
-./create static-node-pools/screate-node-pools.sh
+chmod 750 static-node-pools/*.sh
+./static-node-pools/create-node-pools.sh
 ```
 
 3. Deploy the custom compute class:
@@ -129,7 +129,15 @@ We now have 30 replicas with pods landing on the n2 nodes. Next, let's scale up 
  kubectl scale deployment test-workload --replicas 100
 ```
 
-7. Delete the workload and watch the scale down:
+7. To test active migration, we can now update the `e2-4-spot-pool` to max node size of 10. Edit the script to add your cluster name and location, then run:
+
+```bash
+./static-node-pools/update-e2-node-pool.sh
+```
+
+After a while, you'll see additional e2-standard-4 spot nodes being created and your workloads being migrated from n2 and n2d nodes.
+
+8. Delete the workload and watch the scale down:
 ```bash
 kubectl delete -f static-node-pools/static-pools-deploy.yaml
 ```
