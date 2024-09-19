@@ -22,4 +22,4 @@ spec:
           requests:
             cpu: 700m
             memory: "1Gi"
-            ephemeral-storage: "9Gi"
+            ephemeral-storage: "1Gi"

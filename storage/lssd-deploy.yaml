@@ -21,7 +21,7 @@ spec:
           requests:
             cpu: 700m
             memory: "1Gi"
-            ephemeral-storage: "10Gi"
+            ephemeral-storage: "2Gi"
         volumeMounts:
         - mountPath: /cache
           name: scratch-volume
